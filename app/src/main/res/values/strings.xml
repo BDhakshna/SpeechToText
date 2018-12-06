@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Speech-to-Text</string>
+    <string name="btn_label">Push-to-Talk</string>
+    <string name="leftBtn">Set Name</string>
+    <string name="middleBtn">Clear Text</string>
+    <string name="rightBtn">Reset Name</string>
+    <string name="shareBtn">Share</string>
+</resources>
