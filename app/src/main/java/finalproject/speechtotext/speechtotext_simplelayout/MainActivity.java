@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         data = getPreferences(MODE_PRIVATE);
         voiceOutput = findViewById(R.id.voiceInput);
         if (!"".equals(data.getString("Transcript", ""))) {
-            voiceOutput.setText(data.getString("Transcript", "") + "\n——————\n\n");
+            voiceOutput.setText(data.getString("Transcript", "") + "\n——————\n");
         } else {
             voiceOutput.setText(data.getString("Transcript", ""));
         }
@@ -71,13 +71,6 @@ public class MainActivity extends AppCompatActivity {
                 promptResetName();
             }
         });
-        /*Button saveButton = findViewById(R.id.saveBtn);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });*/
     }
     @Override
     protected void onPause() {
@@ -85,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor editor = data.edit()
                 .putString("Transcript", voiceOutput.getText().toString())
                 .putString("Speaker", speakerName);
-        editor.commit();
+        editor.apply();
     }
     private void promptUserInput() {
         final EditText input = new EditText(this);
@@ -130,23 +123,25 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
     private void promptResetName() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirm Name Reset")
-                .setMessage("Are you sure you wish to remove the name prefix from future recorded text?")
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        speakerName = "";
-                        setNameButton.setText(R.string.leftBtn);
-                    }
-                })
-                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                })
-                .show();
+        if (!speakerName.equals("")) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(this)
+                    .setTitle("Confirm Name Reset");
+            builder.setMessage("Are you sure you wish to remove the name prefix from future recorded text?")
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            speakerName = "";
+                            setNameButton.setText(R.string.leftBtn);
+                        }
+                    })
+                    .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    })
+                    .show();
+        }
     }
     private void initVoiceInput() {
         try {
