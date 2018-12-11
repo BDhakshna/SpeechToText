@@ -11,6 +11,7 @@ Created by Ravi Patel and Dhakshna Morthy
   - Optional, editable prefix to transcribed text
   - Clearing transcript
   - Persistent state with automatic line separation
+  - Scrollable
 
 # Video
    - [YouTube](https://www.youtube.com)
